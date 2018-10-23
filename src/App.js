@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import * as API from './api.js';
 import ObjDetect from './functions/objDetect.js';
 
 import './App.css';
