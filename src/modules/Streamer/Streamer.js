@@ -1,41 +1,28 @@
 import React, { Component } from 'react';
 
-import './Streamer.css';
 import ObjDetect from '../../functions/objDetect';
+
+import './Streamer.css';
+
+const logo = require('../../resources/logo.svg');
 
 export default class Streamer extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
+			started:		false,
 			support:        null,
 			mediaStream:    null,
 		};
 	}
 
-	componentDidMount() {
-		this.init();
-	}
-
-	componentWillUnmount() {
-		this.VIDEO.removeEventListener(
-			'playing',
-			this.handleEventListener,
-		);
-
-		this.VIDEO.removeEventListener(
-			'loadedmetadata',
-			this.handleEventListener,
-		);
-	}
-
 	init = () => {
 		const support = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+		let playing = false;
+		let loadedmetadata = false;
 
 		if (support) {
-			let isPlaying = false;
-			let loadedmetadata = false;
-
 			this.OBJ_DETECT = new ObjDetect({
 				videoRef:       	this.VIDEO,
 				dataMirror:			false,
@@ -43,15 +30,21 @@ export default class Streamer extends Component {
 				dataThreshold:		0.5,
 			});
 
-			this.VIDEO.addEventListener(
-				'playing',
-				this.handleEventListener('playing', 'loadedmetadata'),
-			);
+			this.VIDEO.addEventListener('playing', () => {
+				playing = true;
 
-			this.VIDEO.addEventListener(
-				'loadedmetadata',
-				this.handleEventListener('loadedmetadata', 'playing'),
-			);
+				if (loadedmetadata) {
+					this.OBJ_DETECT.startObjectDetection(document);
+				}
+			});
+
+			this.VIDEO.addEventListener('loadedmetadata', () => {
+				loadedmetadata = true;
+
+				if (playing) {
+					this.OBJ_DETECT.startObjectDetection(document);
+				}
+			});
 
 			navigator.mediaDevices.getUserMedia({
 				audio: false,
@@ -73,14 +66,6 @@ export default class Streamer extends Component {
 		}
 	}
 
-	handleEventListener = (listener, opposer) => {
-		listener = true;
-
-		if (opposer) {
-			this.OBJ_DETECT.startObjectDetection(document);
-		}
-	}
-
 	renderCameraInput = () => {
 		if (this.state.support && this.state.mediaStream) {
 			this.VIDEO.srcObject = this.state.mediaStream;
@@ -91,23 +76,56 @@ export default class Streamer extends Component {
 		)
 	}
 
-	render() {
+	renderInitialContainer = () => {
+		const handleStartingStream = () => {
+			this.setState({
+				started: true,
+			}, () => {
+				this.init();
+			});
+		};
+
+		return (
+			<div className="initial-container">
+				<img
+					className="brand-logo"
+					alt='lace'
+					src={logo}
+				/>
+				<button
+					className="stream-button"
+					onClick={handleStartingStream}
+				>
+					Start Streaming
+				</button>
+			</div>
+		);
+	}
+
+	renderStreamContainer = () => {
 		return (
 			<div className="stream-container">
-				<div className="video-container">
-					{this.renderCameraInput()}
-					<video
-						ref={(ref) => this.VIDEO = ref}
-						className="video"
-						id="video"
-						muted
-						playsInline
-						autoPlay
-					/>
-				</div>
-				<div className="button-container">
+				{this.renderCameraInput()}
+				<video
+					ref={(ref) => this.VIDEO = ref}
+					className="video"
+					id="video"
+					muted
+					playsInline
+					autoPlay
+				/>
+			</div>
+		);
+	}
 
-				</div>
+	render() {
+		return (
+			<div className="main-container">
+				{this.state.started ? 
+					this.renderStreamContainer()
+					:
+					this.renderInitialContainer()
+				}
 			</div>
 		);
 	}

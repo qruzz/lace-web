@@ -15,7 +15,7 @@ class ObjDetect {
             this.MIRROR = video.mirror || false;
             this.THRESHOLD = video.scoreThreshold || 0.5;
         } else {
-            new Error('Missing vide object');
+            new Error('Missing video object');
         }
     }
 
