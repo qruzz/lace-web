@@ -15,6 +15,8 @@ export default class Auth extends PureComponent {
             username: undefined,
             password: undefined,
         };
+
+        console.log(this.props.history);
     }
 
     renderLoginButton = () => {
@@ -25,7 +27,11 @@ export default class Auth extends PureComponent {
             }).then((result) => {
                 if (result) {
                     localStorage.setItem('@User', JSON.stringify(result));
-                    this.props.history.push('/player');
+                    if (this.props.history.location.state === 'stream') {
+                        this.props.history.push('/streamer');
+                    } else {
+                        this.props.history.push('/player');
+                    }
                 }
             });
         };

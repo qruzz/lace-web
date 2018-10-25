@@ -17,6 +17,14 @@ export default class Streamer extends Component {
 		};
 	}
 
+	componentDidMount() {
+		const user = localStorage.getItem('@User');
+
+		if (!user) {
+			this.props.history.push('/auth', 'stream');
+		}
+	}
+
 	init = () => {
 		const support = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
 		let playing = false;
