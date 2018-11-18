@@ -40,6 +40,44 @@ export default class Player extends Component {
         );
     }
 
+    renderGridButton = () => {
+        const handleOnClick = () => {
+            this.setState({
+                drawingGrid: !this.state.drawingGrid,
+            }, () => {
+                this.OBJ_DETECT.drawGrid(document);
+            });
+        };
+
+        return (
+            <button
+                className={`control-button ${this.state.drawingGrid ? 'active' : ''}`}
+                onClick={handleOnClick}
+            >
+                Grid
+            </button>
+        )
+    }
+
+    renderDensityMap = () => {
+        const handleOnClick = () => {
+            this.setState({
+                drawingDensity: true,
+            }, () => {
+                this.OBJ_DETECT.drawDensity(document);
+            });
+        }
+
+        return (
+            <button
+                className={`control-button ${this.state.drawDensity ? 'active' : ''}`}
+                onClick={handleOnClick}
+            >
+                Density Map
+            </button>
+        );
+    }
+
     renderPlayerContainer = () => {
         return (
             <div className="player-container">
@@ -55,6 +93,8 @@ export default class Player extends Component {
                 </div>
                 <div className="button-container">
                     {this.renderBoundingBoxesButton()}
+                    {this.renderGridButton()}
+                    {this.renderDensityMap()}   
                 </div>
             </div>
         );
@@ -63,7 +103,7 @@ export default class Player extends Component {
     render() {
         return (
             <div className="main-container">
-
+                {this.renderPlayerContainer()}
             </div>
         );
     }

@@ -1,0 +1,27 @@
+.button-container {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+button.control-button {
+    height: 5vh;
+    padding: 0 5%;
+    border-radius: calc(5vh / 2);
+    background-color: #3866E6;
+    color: #FFFFFF;
+    font-family: 'Maax Trial';
+    font-size: 1.4vh;
+    font-weight: 600;
+}
+
+button.control-button:not(:last-child) {
+    margin-right: 20px;
+}
+
+button.control-button.active {
+    background-color: #BEC3D1;
+    color: #424755;
+}

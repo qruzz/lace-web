@@ -62,3 +62,58 @@ button {
     align-items: center;
     justify-content: center;
 }
+
+@font-face {
+    font-family: 'Maax Trial';
+    src: url('/resources/fontsMaaxTrial-Regular.eot');
+    src: url('/resources/fontsMaaxTrial-Regular.eot?#iefix') format('embedded-opentype'),
+        url('/resources/fontsMaaxTrial-Regular.woff2') format('woff2'),
+        url('/resources/fontsMaaxTrial-Regular.woff') format('woff'),
+        url('/resources/fontsMaaxTrial-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Maax Trial';
+    src: url('/resources/fontsMaaxTrial-Medium.eot');
+    src: url('/resources/fontsMaaxTrial-Medium.eot?#iefix') format('embedded-opentype'),
+        url('/resources/fontsMaaxTrial-Medium.woff2') format('woff2'),
+        url('/resources/fontsMaaxTrial-Medium.woff') format('woff'),
+        url('/resources/fontsMaaxTrial-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Maax Trial';
+    src: url('/resources/fontsMaaxTrial-Bold.eot');
+    src: url('/resources/fontsMaaxTrial-Bold.eot?#iefix') format('embedded-opentype'),
+        url('/resources/fontsMaaxTrial-Bold.woff2') format('woff2'),
+        url('/resources/fontsMaaxTrial-Bold.woff') format('woff'),
+        url('/resources/fontsMaaxTrial-Bold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Maax Trial';
+    src: url('/resources/fontsMaaxTrial-Light.eot');
+    src: url('/resources/fontsMaaxTrial-Light.eot?#iefix') format('embedded-opentype'),
+        url('/resources/fontsMaaxTrial-Light.woff2') format('woff2'),
+        url('/resources/fontsMaaxTrial-Light.woff') format('woff'),
+        url('/resources/fontsMaaxTrial-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Maax Trial';
+    src: url('/resources/fontsMaaxTrial-Black.eot');
+    src: url('/resources/fontsMaaxTrial-Black.eot?#iefix') format('embedded-opentype'),
+        url('/resources/fontsMaaxTrial-Black.woff2') format('woff2'),
+        url('/resources/fontsMaaxTrial-Black.woff') format('woff'),
+        url('/resources/fontsMaaxTrial-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}

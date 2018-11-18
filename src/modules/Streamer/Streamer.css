@@ -33,24 +33,6 @@ button.stream-button {
     border-radius: calc(10vh / 2);
 }
 
-.button-container {
-    width: 100vw;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
-button.control-button {
-    height: 5vh;
-    padding: 0 5%;
-    border-radius: calc(5vh / 2);
-    background-color: #1D3A89;
-    color: #FFFFFF;
-    font-size: 1.4vh;
-    font-weight: 600;
-}
-
 video.video {
     width: 100vw;
 }
