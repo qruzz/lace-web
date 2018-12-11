@@ -26,9 +26,23 @@ export const streamAndDetect = (image, callback) => {
 	}
 };
 
-export const connectUser = (data) => {
-	console.log(data);
+export function retrieveAndVisualise() {
+	return fetch(`${APIURL}/stream/retrieveAndVisualise`, {
+		method: 'POST',
+		headers: {
+			'Content-Type':		'application/json',
+			auth:				AUTHCODE,
+		},
+	}).then(async (response) => {
+		const json = await response.json();
+		console.log(json);
+		return (json);
+	}).catch((error) => {
+		console.log(error);
+	});
+}
 
+export const connectUser = (data) => {
 	return fetch(`${APIURL}/auth/connectUser`, {
 		method: 'POST',
 		headers: {

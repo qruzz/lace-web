@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import ObjDetect from '../../functions/objDetect';
 import './Player.css';
 
 export default class Player extends Component {
@@ -17,7 +16,7 @@ export default class Player extends Component {
         if (!this.state.user) {
             this.props.history.push('/auth');
         } else {
-            this.OBJ_DETECT = new ObjDetect();
+			// Should start the player - should be recursive function
         }
     }
 
