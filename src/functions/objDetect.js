@@ -31,18 +31,20 @@ class ObjDetect {
         const canvas = document.createElement('canvas');
         
         // Set the width and height of the canvas capture
-        canvas.width = this.UPLOAD_WITH;
-        canvas.height = this.UPLOAD_WITH * (this.VIDOE_REF.videoHeight / this.VIDOE_REF.videoWidth);
+        canvas.width = this.UPLOAD_WIDTH;
+        canvas.height = this.UPLOAD_WIDTH * (this.VIDOE_REF.videoHeight / this.VIDOE_REF.videoWidth);
         
         const context = canvas.getContext('2d');
+        console.log(context);
+        console.log(this.VIDOE_REF);
 
         // Draw an image to the canvas from the videostream
         context.drawImage(this.VIDOE_REF, 0, 0, this.VIDOE_REF.videoWidth, this.VIDOE_REF.videoHeight,
-            0, 0, this.UPLOAD_WITH, this.UPLOAD_WITH * (this.VIDOE_REF.videoHeight / this.VIDOE_REF.videoWidth));
-            
+            0, 0, this.UPLOAD_WIDTH, this.UPLOAD_WIDTH * (this.VIDOE_REF.videoHeight / this.VIDOE_REF.videoWidth));
+
         // Create a Blob object representing the image contained in the canvas
         canvas.toBlob((image) => {
-            
+            console.log(image);
             // Call the API, and start the image stream to the server
             API.streamAndDetect(image, null, () => {
 
