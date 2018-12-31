@@ -14,7 +14,7 @@ class Player {
 
             console.log(result);
             callback(result);
-            // This will be the recursive part
+            // Recursively call this function
             this.startPlayer(callback);
         });
     }

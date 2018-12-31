@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as PlayerClass from '../../functions/player';
 
 import './Player.css';
 
@@ -16,7 +17,15 @@ export default class Player extends Component {
         if (!this.state.user) {
             this.props.history.push('/auth');
         } else {
-			// Should start the player - should be recursive function
+			// Create a new Player
+			this.PLAYER = new PlayerClass();
+
+			// Start the recursive player function
+			this.PLAYER.startPlayer(function(result) {
+				this.setState({
+					data: result,
+				});
+			});
         }
     }
 

@@ -11,7 +11,7 @@ class ObjDetect {
         if (video) {
             this.VIDOE_REF = video.videoRef;
             this.DATA_SOURCE = video.dataSource;
-            this.UPLOAD_WITH = video.dataUploadWidth || 640;
+            this.UPLOAD_WIDTH = video.dataUploadWidth || 640;
             this.MIRROR = video.mirror || false;
             this.THRESHOLD = video.scoreThreshold || 0.5;
         } else {
