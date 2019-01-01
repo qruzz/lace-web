@@ -46,7 +46,7 @@ class ObjDetect {
         canvas.toBlob((image) => {
             console.log(image);
             // Call the API, and start the image stream to the server
-            API.streamAndDetect(image, null, () => {
+            API.streamAndDetect(image, () => {
 
                 // Recursively call this function
                 this.startObjectDetection(document);

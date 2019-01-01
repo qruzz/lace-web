@@ -17,8 +17,8 @@ export const streamAndDetect = (image, callback) => {
 		}).then(async (response) => {
 			const json = await response.json();
 			// TODO: Uncomment for production
-			// callback();
 			console.log(json);
+			callback();
 			return (json);
 		}).catch((error) => {
 			console.log(error);
