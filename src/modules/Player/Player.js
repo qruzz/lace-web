@@ -82,11 +82,9 @@ export default class Player extends Component {
     renderDensityMap = () => {
         const { data } = this.state;
         const handleOnClick = () => {
-            console.log('BEFORE: ', this.state.drawingDensity);
             this.setState({
                 drawingDensity: !this.state.drawingDensity
             }, () => {
-                console.log('AFTER: ', this.state.drawingDensity);
                 if (this.state.drawingDensity) {
                     this.PLAYER.drawDensityGraph(data.graph.graph);
                 } else {
