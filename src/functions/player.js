@@ -9,7 +9,7 @@ class PlayerClass {
         this.CONTEXT = this.CANVAS.getContext('2d');
 
         // The update interval
-        this.UPDATE_INTERVAL = 2000;
+        this.UPDATE_INTERVAL = 1000;
         this.INTERVAL = setInterval(intervalFunc, this.UPDATE_INTERVAL);
     }
 
@@ -32,10 +32,6 @@ class PlayerClass {
 
     drawBoundingBoxes(objects) {
         clearInterval(this.INTERVAL);
-        console.log(objects);
-
-        // Clear the previous drawings
-        this.CONTEXT.clearRect(0, 0, this.CANVAS.width, this.CANVAS.height);
 
         // Set some styles for the bounding boxes
         this.CONTEXT.lineWidth = '2';
@@ -57,8 +53,33 @@ class PlayerClass {
 
     }
 
-    visualiseDensities() {
+    drawDensityGraph(graph) {
+        clearInterval(this.INTERVAL);
 
+        this.CONTEXT.lineWidth = '1';
+        const eachWidth = this.CANVAS.width / graph.length;
+        const eachHeight = this.CANVAS.height / graph.length;
+
+        graph.forEach((each, rowIndex) => {
+            each.forEach((each, index) => {
+                if (each === 1) {
+                    this.CONTEXT.strokeStyle = 'rgba(71, 222, 111, 1)';
+                    this.CONTEXT.fillStyle = 'rgba(71, 222, 111, 0.3)';
+                    this.CONTEXT.strokeRect(index * eachWidth, rowIndex * eachHeight, eachWidth, eachHeight);
+                    this.CONTEXT.fillRect(index * eachWidth, rowIndex * eachHeight, eachWidth, eachHeight);
+                } else if (each === 2) {
+                    this.CONTEXT.strokeStyle = 'rgba(240, 162, 2, 1)';
+                    this.CONTEXT.fillStyle = 'rgba(240, 162, 2, 0.3)';
+                    this.CONTEXT.strokeRect(index * eachWidth, rowIndex * eachHeight, eachWidth, eachHeight);
+                    this.CONTEXT.fillRect(index * eachWidth, rowIndex * eachHeight, eachWidth, eachHeight);
+                } else if (each === 3) {
+                    this.CONTEXT.strokeStyle = 'rgba(234, 64, 65, 1)';
+                    this.CONTEXT.fillStyle = 'rgba(234, 64, 65, 0.3)';
+                    this.CONTEXT.strokeRect(index * eachWidth, rowIndex * eachHeight, eachWidth, eachHeight);
+                    this.CONTEXT.fillRect(index * eachWidth, rowIndex * eachHeight, eachWidth, eachHeight);
+                }
+            });
+        });
     }
 }
 

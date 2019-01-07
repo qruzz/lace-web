@@ -10,6 +10,7 @@ export default class Player extends Component {
         this.state = {
             data: null,
             drawingBoxes: false,
+            drawingDensity: false,
         }
     }
 
@@ -79,18 +80,25 @@ export default class Player extends Component {
     }
 
     renderDensityMap = () => {
+        const { data } = this.state;
         const handleOnClick = () => {
+            console.log('BEFORE: ', this.state.drawingDensity);
             this.setState({
-                drawingDensity: true,
+                drawingDensity: !this.state.drawingDensity
             }, () => {
-                this.OBJ_DETECT.drawDensity(document);
+                console.log('AFTER: ', this.state.drawingDensity);
+                if (this.state.drawingDensity) {
+                    this.PLAYER.drawDensityGraph(data.graph.graph);
+                } else {
+                    this.PLAYER.clearCanvas(this.initPlayer);
+                }
             });
         }
 
         return (
             <button
-                className={`control-button ${this.state.drawDensity ? 'active' : ''}`}
-                onClick={handleOnClick}
+                className={`control-button ${this.state.drawingDensity ? 'active' : ''}`}
+                onClick={this.state.data ? handleOnClick : null}
             >
                 Density Map
             </button>
