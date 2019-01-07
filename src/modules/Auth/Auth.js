@@ -15,23 +15,25 @@ export default class Auth extends PureComponent {
             username: undefined,
             password: undefined,
         };
-
-        console.log(this.props.history);
     }
 
     renderLoginButton = () => {
+        const { username, password } = this.state;
         const handleLogin = () => {
             connectUser({
-                username: this.state.username,
-                password: CryptoJS.SHA3(this.state.password).toString(),
+                username: username,
+                password: password ? CryptoJS.SHA3(this.state.password).toString() : undefined,
             }).then((result) => {
-                if (result) {
+                console.log(result);
+                if (!result.error) {
                     localStorage.setItem('@User', JSON.stringify(result));
                     if (this.props.history.location.state === 'stream') {
                         this.props.history.push('/streamer');
                     } else {
                         this.props.history.push('/player');
                     }
+                } else {
+                    console.log(result);
                 }
             });
         };

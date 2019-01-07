@@ -1,4 +1,26 @@
+.video-container {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+img.video-image {
+    width: 1280px;
+    height: 720px;
+}
+
+canvas {
+    z-index: 999;
+    position: absolute;
+    /* top: 43%; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .button-container {
+    position: absolute;
+    bottom: 7%;
     width: 100vw;
     display: flex;
     flex-direction: row;

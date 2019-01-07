@@ -16,8 +16,6 @@ export const streamAndDetect = (image, callback) => {
 			body: JSON.stringify({base64image}),
 		}).then(async (response) => {
 			const json = await response.json();
-			// TODO: Uncomment for production
-			console.log(json);
 			callback();
 			return (json);
 		}).catch((error) => {
@@ -35,7 +33,6 @@ export function retrieveAndVisualise() {
 		},
 	}).then(async (response) => {
 		const json = await response.json();
-		console.log(json);
 		return (json);
 	}).catch((error) => {
 		console.log(error);
@@ -52,8 +49,6 @@ export const connectUser = (data) => {
 		body: JSON.stringify(data),
 	}).then(async (response) => {
 		const json = await response.json();
-
-		console.log(json);
 		return (json);
 	}).catch((error) => {
 		console.log(error);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as PlayerClass from '../../functions/player';
+import PlayerClass from '../../functions/player';
 
 import './Player.css';
 
@@ -8,33 +8,51 @@ export default class Player extends Component {
         super(props);
 
         this.state = {
-            user: localStorage.getItem('@User'),
-        };
+            data: null,
+            drawingBoxes: false,
+        }
+
+        // The update interval
+		this.UPDATE_INTERVAL = 5000;
     }
 
     componentDidMount() {
-        console.log(this.state.user);
-        if (!this.state.user) {
-            this.props.history.push('/auth');
+        const user = JSON.parse(localStorage.getItem('@User'));
+		if (!user || user.error) {
+			this.props.history.push('/auth');
         } else {
-			// Create a new Player
-			this.PLAYER = new PlayerClass();
 
-			// Start the recursive player function
-			this.PLAYER.startPlayer(function(result) {
-				this.setState({
-					data: result,
-				});
-			});
+            // Create a new Player
+            this.PLAYER = new PlayerClass(document);
+    
+            this.initPlayer();
+            // setInterval(this.initPlayer, this.UPDATE_INTERVAL);
         }
     }
 
+    initPlayer = () => {
+        // Start the recursive player function
+        this.PLAYER.startPlayer((result) => {
+            console.log(result);
+            this.setState({
+                data: result,
+            });
+        });
+    };
+
     renderBoundingBoxesButton = () => {
+        const { data } = this.state;
         const handleOnClick = () => {
             this.setState({
-                drawingBoxes: true,
+                drawingBoxes: !this.state.drawingBoxes,
             }, () => {
-                this.OBJ_DETECT.drawBoundingBoxes(document);
+                console.log('AFTER: ', this.state.drawingBoxes);
+                if (this.state.drawingBoxes) {
+                    console.log('hello');
+                    this.PLAYER.drawBoundingBoxes(data.boundingBoxes);
+                } else {
+                    this.PLAYER.clearCanvas();
+                }
             });
         };
 
@@ -87,30 +105,28 @@ export default class Player extends Component {
     }
 
     renderPlayerContainer = () => {
-        return (
-            <div className="player-container">
-                <div className="video-container">
-                    <video
-                        ref={(ref) => this.VIDEO = ref}
-                        className="fullscreen-video"
-                        id="video"
-                        muted
-                        playsInline
-                        autoPlay
-                    />
+        const { data } = this.state;
+        if (data) {
+            return (
+                <div className="player-container">
+                    <div className="video-container">
+                        <img src={data.uri} className="video-image" />
+                    </div>
+                    <div className="button-container">
+                        {this.renderBoundingBoxesButton()}
+                        {this.renderGridButton()}
+                        {this.renderDensityMap()}   
+                    </div>
                 </div>
-                <div className="button-container">
-                    {this.renderBoundingBoxesButton()}
-                    {this.renderGridButton()}
-                    {this.renderDensityMap()}   
-                </div>
-            </div>
-        );
+            );
+        }
+
+        return (null);
     }
 
     render() {
         return (
-            <div className="main-container">
+            <div style={{backgroundColor: '#424242'}} className="main-container">
                 {this.renderPlayerContainer()}
             </div>
         );

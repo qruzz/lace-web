@@ -1,49 +1,72 @@
 import { retrieveAndVisualise } from '../api';
 
-class Player {
-    constructor() {
-
+class PlayerClass {
+    constructor(document) {
+        this.CANVAS = document.createElement('canvas');
+        this.CANVAS.width = 1280;
+        this.CANVAS.height = 720;
+        document.body.appendChild(this.CANVAS);
+        this.CONTEXT = this.CANVAS.getContext('2d');
     }
 
     startPlayer(callback) {
-        retrieveAndVisualise().then(function(error, result) {
-            if (error) {
-                console.log('There was no result', error);
+        retrieveAndVisualise().then(function(result) {
+            if (!result) {
+                console.log('There was no result');
                 return (null);
             }
 
-            console.log(result);
             callback(result);
-            // Recursively call this function
-            this.startPlayer(callback);
         });
     }
 
-    drawBoundingBoxes(document, objects) {
-        const canvas = document.createElement('canvas');
-        document.body.appendChild(canvas);
-        const context = canvas.getContext('2d');
+    clearCanvas() {
+        this.CONTEXT.clearRect(0, 0, this.CANVAS.width, this.CANVAS.height);
+    }
+
+    drawBoundingBoxes(objects) {
+        console.log(objects);
+        // const canvas = document.createElement('canvas');
 
         // Clear the previous drawings
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        this.CONTEXT.clearRect(0, 0, this.CANVAS.width, this.CANVAS.height);
 
         // Set some styles for the bounding boxes
-        context.lineWidth = '4';
-        context.strokeStyle = 'yellow';
-        context.font = '12px sans-serif';
-        context.fillStyle = 'yellow';
+        this.CONTEXT.lineWidth = '2';
+        this.CONTEXT.strokeStyle = 'yellow';
+        this.CONTEXT.font = '12px sans-serif';
+        this.CONTEXT.fillStyle = 'blue';
 
+        const start = objects[0];
+        const x = 0;
+        const y = 1;
+        const startCoordX = objects[0][x] * this.CANVAS.width;
+        const startCoordY = objects[0][y] * this.CANVAS.width;
+        const width = (objects[1][x] - start[x]) * this.CANVAS.width;
+        const height = (objects[3][y] - start[y]) * this.CANVAS.height;
+        this.CONTEXT.strokeRect(startCoordX, startCoordY, width, height);
+
+        // objects.forEach(function(each) {
+        //     console.log(each);
+        //     let x = each[0] * canvas.width;
+        //     const y = each[1] * canvas.height;
+        //     context.moveTo(x, y);
+        // });
+        // // context.stroke();
+        // console.log('stroked');
+        
         // Filter out objects that contain a class_name
-        objects.filter((object) => object.class_name).forEach(function(each) {
-            let x = each.x * canvas.width;
-            const y = each.y * canvas.height;
-            const width = (each.width * canvas.width) - x;
-            const height = (each.height * canvas.height) - y;
+        // objects.filter((object) => object.class_name).forEach(function(each) {
+        //     console.log(each);
+        //     let x = each.x * canvas.width;
+        //     const y = each.y * canvas.height;
+        //     const width = (each.width * canvas.width) - x;
+        //     const height = (each.height * canvas.height) - y;
 
-            // Draw the classification and the bounding boxes
-            context.fillText(`${each.class_name} - ${Math.round(each.score * 100, 1)}%`, x + 5, y + 20);
-            context.strokeRect(x, y, width, height);
-        });
+        //     // Draw the classification and the bounding boxes
+        //     context.fillText(`${each.class_name} - ${Math.round(each.score * 100, 1)}%`, x + 5, y + 20);
+        //     context.strokeRect(x, y, width, height);
+        // });
     }
 
     drawGridBoxes() {
@@ -55,4 +78,4 @@ class Player {
     }
 }
 
-export default Player;
+export default PlayerClass;

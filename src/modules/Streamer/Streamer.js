@@ -57,6 +57,8 @@ export default class Streamer extends Component {
 			navigator.mediaDevices.getUserMedia({
 				audio: false,
 				video: {
+					// width: { min: 300, ideal: 480, max: 640 },
+					// height: { min: 300, ideal: 480, max: 640 },
 					width: { min: 640, ideal: 1280, max: 1920 },
 					height: { min: 480, ideal: 720, max: 1080 },
 				},
