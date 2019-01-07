@@ -11,9 +11,6 @@ export default class Player extends Component {
             data: null,
             drawingBoxes: false,
         }
-
-        // The update interval
-		this.UPDATE_INTERVAL = 5000;
     }
 
     componentDidMount() {
@@ -23,10 +20,8 @@ export default class Player extends Component {
         } else {
 
             // Create a new Player
-            this.PLAYER = new PlayerClass(document);
-    
+            this.PLAYER = new PlayerClass(document, this.initPlayer);
             this.initPlayer();
-            // setInterval(this.initPlayer, this.UPDATE_INTERVAL);
         }
     }
 
@@ -46,12 +41,10 @@ export default class Player extends Component {
             this.setState({
                 drawingBoxes: !this.state.drawingBoxes,
             }, () => {
-                console.log('AFTER: ', this.state.drawingBoxes);
                 if (this.state.drawingBoxes) {
-                    console.log('hello');
                     this.PLAYER.drawBoundingBoxes(data.boundingBoxes);
                 } else {
-                    this.PLAYER.clearCanvas();
+                    this.PLAYER.clearCanvas(this.initPlayer);
                 }
             });
         };
